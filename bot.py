@@ -23,7 +23,7 @@ log = logging.getLogger("ADsBot")
 
 log.info("\n\nStarting...")
 
-# getting the vars
+# Getting config vars
 try:
     API_ID = config("API_ID", default="23097454", cast=int)
     API_HASH = config("API_HASH", default="c244cdd380d02f0d51eca49df46db852")
@@ -55,20 +55,13 @@ log.info("\t" * 5 + f"Number of target chats: {len(GROUP_IDS)}")
 log.info("-" * 150)
 log.info("\n")
 
-# connecting the client
-try:
-    client = TelegramClient(
-        StringSession(SESSION), api_id=API_ID, api_hash=API_HASH
-    ).start()
-except Exception as e:
-    log.warning(e)
-    exit(1)
-
+client = TelegramClient(
+    StringSession(SESSION), api_id=API_ID, api_hash=API_HASH
+)
 
 @client.on(events.NewMessage(incoming=True, from_users=OWNERS, pattern="^/alive$"))
 async def start(event):
     await event.reply("ADsBot is running.")
-
 
 @client.on(events.NewMessage(incoming=True, from_users=OWNERS, pattern="^/messages$"))
 async def get_msgs(event):
@@ -83,7 +76,6 @@ async def get_msgs(event):
     else:
         await event.reply(txt)
 
-
 @client.on(
     events.NewMessage(
         incoming=True, func=lambda e: e.is_private and e.sender_id not in OWNERS
@@ -95,7 +87,7 @@ async def pm_msg(event):
     if event.sender_id not in PM_CACHE:
         await asyncio.sleep(random.randint(5, 10))
         await event.reply(PM_MSG_1)
-        PM_CACHE[event.sender_id] = 1  # Update PM_CACHE here
+        PM_CACHE[event.sender_id] = 1
     else:
         times = PM_CACHE[event.sender_id]
         if times == 1:
@@ -106,8 +98,7 @@ async def pm_msg(event):
             await asyncio.sleep(random.randint(5, 10))
             await event.reply(PM_MSG_3, file=PM_MEDIA)
             times += 1
-        PM_CACHE[event.sender_id] = times  # Update PM_CACHE here
-
+        PM_CACHE[event.sender_id] = times
 
 async def send_msg():
     global TIMES_SENT
@@ -119,21 +110,18 @@ async def send_msg():
             log.warning(f"Error sending message: {str(er)}")
     TIMES_SENT += 1
 
+async def main():
+    await client.start()
+    scheduler = AsyncIOScheduler()
+    scheduler.add_job(send_msg, "interval", seconds=TIME_DELAY)
+    scheduler.start()
+    log.info(f"Scheduler started with a {TIME_DELAY} second gap.")
+    log.info("\n\nStarted.\n(c) @Fatman_Big.\n")
+    await client.run_until_disconnected()
 
-logging.getLogger("apscheduler.executors.default").setLevel(
-    logging.WARNING
-)  # silent, log only errors.
-log.info(f"Starting scheduler with a {TIME_DELAY} second gap...")
-scheduler = AsyncIOScheduler()
-scheduler.add_job(send_msg, "interval", seconds=TIME_DELAY)
-scheduler.start()
-log.info("\n\nStarted.\n(c) @Fatman_Big.\n")
-
-
-client.run_until_disconnected()
-# run it
-try:
-    client.run_until_disconnected()
-except KeyboardInterrupt:
-    log.info("Stopped.")
-    exit(0)
+if __name__ == "__main__":
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        log.info("Stopped by user.")
+        exit(0)
