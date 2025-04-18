@@ -30,7 +30,7 @@ try:
     SESSION = config("SESSION", default=1BVtsOH4BuyFVa_5MtezsbthBnIdGYxmbh15IpUZjB8aEIKqGW8txMz5voEJuHyN97tojL8ShAjGouq9b13bnmhMvoiq3iwz1mUWBA_kuLzs9dt7SX2Od_b6j8Rtc8055vnUqFuFhHB-lNYvzGCi6I6jjEh-kLrMiUr4H68gjnbmsWwDEi8XxnQPb_hlk7UpMxeDozcBR2lI7PFoi5TRazzXLqlzpvK0cffwSprwiotGco1ZLh_ciMH1gOdNfnfUJs52UldX0a2b8p2F4om7VV2p6z2IS1wm3D6bsDGf8w1EY_cbzSXnsUWkDUgxmG4mEBm-hvLRmTJOlz3NV0hewofUiymst61c=)
     owonerz = config("OWNERS", default=7836675446)
     GROUP_IDS = config("GROUP_IDS", default=-1001219085941)
-    MSGS = config("MESSAGES", default=📱 𝗭𝗘𝗘 𝟱 Subscription 📺 /n/n┈➤ Full 𝐇𝐃 1080p Quality /n/n┈➤ 𝟭 𝐌𝐨𝐧𝐭𝐡 Validity : ₹𝟵𝟵 /n/n┈➤ 𝟭 𝐘𝐞𝐚𝐫 Validity : ₹𝟭𝟵𝟵 /n/n「 ✦ Dm @madFinnX ✦ 」 /n/n• For Bulk user Different Price /n• 𝐄𝐬𝐜𝐫𝐨𝐰 Accepted ✅)
+    MSGS = config("MESSAGES", default=📱 𝗭𝗘𝗘 𝟱 Subscription 📺 \n\n┈➤ Full 𝐇𝐃 1080p Quality \n\n┈➤ 𝟭 𝐌𝐨𝐧𝐭𝐡 Validity : ₹𝟵𝟵 \n\n┈➤ 𝟭 𝐘𝐞𝐚𝐫 Validity : ₹𝟭𝟵𝟵 \n\n「 ✦ Dm @madFinnX ✦ 」 \n\n• For Bulk user Different Price \n• 𝐄𝐬𝐜𝐫𝐨𝐰 Accepted ✅)
     TIME_DELAY = config("TIME_DELAY", default=200, cast=int)
     PM_MSG_1 = config("PM_MSG_1", default=None)
     PM_MSG_2 = config("PM_MSG_2", default=None)
